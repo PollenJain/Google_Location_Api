@@ -73,8 +73,9 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         /*If you have the permission, the method returns PackageManager.PERMISSION_GRANTED,
         if the app does not have the permission, the method returns PackageManager.PERMISSION_DENIED
          */
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
         /* This condition is  true means the app doesn't have the permission.
            There could be 2 reasons for that :
            1. Either the Runtime Permissions dialog box hasn't appeared even once till now.
@@ -94,14 +95,13 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             // for ActivityCompat#requestPermissions for more details.
 
             else
-                {
+            {
                 /* Code for providing runtime permission starts here */
                 Log.d("MainActivity", "requestLocationUpdates: Asking for runtime permissions");
                 final String perm[] = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
                 /*since your app doesnot have the permission you prompt the user to provide the permission
                 by calling requestPermissions
                  */
-
                 ActivityCompat.requestPermissions(this, perm, MY_PERMISSION_REQUEST_LOCATION_PERMISSION);
             }
 
@@ -109,7 +109,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         else
         {
             //In case permission is granted this time, onRequestPermissionsResult gets called and 1st case in switch becomes true.
-            //In case permission was granted the last time, else part gets called.
+            //In case permission was granted the last time, else (this) part gets called.
             Log.d("MainActivity", "requestForPermission : Permission already granted");
             myLastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
             if(myLastLocation!=null)
@@ -163,7 +163,6 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         if(googleApiClient.isConnected())
         {
             Log.d("MainActivity", "yes connected. now calling requestForPermission explicitly from onResume");
-
         }
         else
         {
@@ -245,7 +244,6 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         }
     }
 
-    /* NOT USING THIS METHOD FOR NOW */
     public void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener){
             new AlertDialog.Builder(MainActivity.this)
                     .setMessage(message)
